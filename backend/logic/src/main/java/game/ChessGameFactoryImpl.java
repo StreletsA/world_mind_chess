@@ -1,7 +1,7 @@
 package game;
 
-import attribute.board.BasicGameBoard;
-import attribute.board.GameBoard;
+import attribute.board.BasicChessBoard;
+import attribute.board.ChessBoard;
 import attribute.piece.ChessPieceColor;
 import game.player.BasicPlayer;
 import game.player.Player;
@@ -9,7 +9,7 @@ import game.player.Player;
 public class ChessGameFactoryImpl implements ChessGameFactory {
     @Override
     public ChessGame createBasicGame() {
-        GameBoard board = new BasicGameBoard();
+        ChessBoard board = new BasicChessBoard();
         BasicChessGame game = BasicChessGame.of(board);
 
         Player playerWhite = BasicPlayer.of(ChessPieceColor.WHITE, game);

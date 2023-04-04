@@ -1,6 +1,6 @@
 package game;
 
-import attribute.board.GameBoard;
+import attribute.board.ChessBoard;
 import attribute.piece.ChessPiece;
 import attribute.piece.ChessPieceColor;
 import attribute.piece.ChessPieceType;
@@ -9,6 +9,8 @@ import error.LogicError;
 import game.player.Player;
 import game.move.PlayerChessMove;
 import game.player.PlayerPawnPromotion;
+import game.status.BasicGameStatus;
+import game.status.GameStatus;
 
 import java.util.*;
 
@@ -56,7 +58,8 @@ public class BasicChessGame implements ChessGame {
 
     private Player playerWhite;
     private Player playerBlack;
-    private final GameBoard board;
+    private final ChessBoard board;
+    private final GameStatus status;
     private final List<PlayerChessMove> movesHistory = new ArrayList<>();
     private final List<ChessPiece> removedWhitePieces = new ArrayList<>();
     private final List<ChessPiece> removedBlackPieces = new ArrayList<>();
@@ -65,18 +68,19 @@ public class BasicChessGame implements ChessGame {
 
     private ChessPieceColor moveColor = ChessPieceColor.WHITE;
 
-    public static BasicChessGame of(GameBoard board) {
+    public static BasicChessGame of(ChessBoard board) {
         return new BasicChessGame(null, null, board);
     }
 
-    public static BasicChessGame of(Player playerWhite, Player playerBlack, GameBoard board) {
+    public static BasicChessGame of(Player playerWhite, Player playerBlack, ChessBoard board) {
         return new BasicChessGame(playerWhite, playerBlack, board);
     }
 
-    private BasicChessGame(Player playerWhite, Player playerBlack, GameBoard board) {
+    private BasicChessGame(Player playerWhite, Player playerBlack, ChessBoard board) {
         this.playerWhite = playerWhite;
         this.playerBlack = playerBlack;
         this.board = board;
+        this.status = BasicGameStatus.START_GAME_STATUS;
 
         initBoard();
     }
@@ -111,8 +115,13 @@ public class BasicChessGame implements ChessGame {
     }
 
     @Override
-    public GameBoard getBoard() {
+    public ChessBoard getBoard() {
         return board;
+    }
+
+    @Override
+    public GameStatus getStatus() {
+        return status;
     }
 
     @Override

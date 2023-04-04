@@ -9,16 +9,13 @@ import error.LogicError;
 import game.move.ChessMove;
 import attribute.piece.ChessPiece;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
-public class BasicGameBoard implements GameBoard {
-    private static final GameBoardSize size = GameBoardSize.BASIC;
+public class BasicChessBoard implements ChessBoard {
+    private static final ChessBoardSize size = ChessBoardSize.BASIC;
     private static final List<GameBoardRow> rows = new ArrayList<>();
 
-    public BasicGameBoard() {
+    public BasicChessBoard() {
         for (int i = 0; i < size.getRowsCount(); i++) {
             List<GameBoardSquare> squares = new ArrayList<>();
 
@@ -33,7 +30,7 @@ public class BasicGameBoard implements GameBoard {
     }
 
     @Override
-    public GameBoardSize getSize() {
+    public ChessBoardSize getSize() {
         return size;
     }
 
@@ -75,6 +72,19 @@ public class BasicGameBoard implements GameBoard {
     @Override
     public Optional<ChessPiece> getPiece(GameBoardSquareCoordinates coordinates) {
         return getSquare(coordinates).getPiece();
+    }
+
+    @Override
+    public Map<GameBoardSquareCoordinates, ChessPiece> getPieces() {
+        Map<GameBoardSquareCoordinates, ChessPiece> pieceMap = new HashMap<>();
+
+        for (GameBoardRow row : rows) {
+            for (GameBoardSquare square : row.getSquares()) {
+                square.getPiece().ifPresent(chessPiece -> pieceMap.put(square.getCoordinates(), chessPiece));
+            }
+        }
+
+        return pieceMap;
     }
 
     @Override
