@@ -1,8 +1,9 @@
 package attribute.square;
 
-import error.LogicError;
 import attribute.piece.ChessPiece;
+import error.LogicError;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class BasicGameBoardSquare implements GameBoardSquare {
@@ -49,5 +50,26 @@ public class BasicGameBoardSquare implements GameBoardSquare {
 
     public boolean isEmpty() {
         return piece == null;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof GameBoardSquare)) {
+            return false;
+        }
+
+        GameBoardSquare other = (GameBoardSquare) obj;
+
+        return Objects.equals(coordinates, other.getCoordinates())
+                && Objects.equals(piece, other.getPiece().orElse(null));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(coordinates, piece);
     }
 }

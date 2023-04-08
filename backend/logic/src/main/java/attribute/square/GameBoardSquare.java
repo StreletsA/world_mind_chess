@@ -1,7 +1,7 @@
 package attribute.square;
 
-import error.LogicError;
 import attribute.piece.ChessPiece;
+import error.LogicError;
 
 import java.util.Optional;
 

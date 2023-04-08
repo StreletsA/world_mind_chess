@@ -12,39 +12,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class PawnCoordinator extends BasicChessPieceCoordinator {
-    public PawnCoordinator(Map<ChessPieceType, BasicChessPieceCoordinator> coordinatorMap) {
+public class KingPieceCoordinator extends BasicChessPieceCoordinator {
+    public KingPieceCoordinator(Map<ChessPieceType, BasicChessPieceCoordinator> coordinatorMap) {
         super(coordinatorMap);
     }
 
     @Override
     public List<ChessMove> getMoves(ChessPiece piece, GameBoardSquareCoordinates startCoordinates, ChessBoard board) {
         ChessPieceColor color = piece.getColor();
-        boolean isWhite = color == ChessPieceColor.WHITE;
         int row = startCoordinates.getRow();
         int column = startCoordinates.getColumn();
-        int rowDelta = isWhite ? 1 : -1;
 
         List<ChessMove> moves = new ArrayList<>();
 
-        for (int columnDelta = -1; columnDelta <= 1; columnDelta++) {
-            GameBoardSquareCoordinates newCoordinates = GameBoardSquareCoordinates.of(row + rowDelta, column + columnDelta);
+        for (int rowDelta = -1; rowDelta <= 1; rowDelta++) {
+            for (int columnDelta = -1; columnDelta <= 1; columnDelta++) {
+                if (rowDelta == 0 && columnDelta == 0) {
+                    continue;
+                }
 
-            if (!isCoordinatesInBoardSizeRange(newCoordinates, board)) {
-                continue;
-            }
+                GameBoardSquareCoordinates newCoordinates = GameBoardSquareCoordinates.of(row + rowDelta, column + columnDelta);
 
-            ChessPiece newCoordinatesPiece = board.getPiece(newCoordinates).orElse(null);
+                if (!isCoordinatesInBoardSizeRange(newCoordinates, board)) {
+                    continue;
+                }
 
-            if (newCoordinatesPiece != null && newCoordinatesPiece.getColor() != color) {
-                moves.add(BasicChessMove.of(piece, startCoordinates, newCoordinates));
-            }
-        }
-
-        if (isWhite && row == 1 || !isWhite && row == 6) {
-            GameBoardSquareCoordinates newCoordinates = GameBoardSquareCoordinates.of(row + (2 * rowDelta), column);
-
-            if (isCoordinatesInBoardSizeRange(newCoordinates, board)) {
                 ChessPiece newCoordinatesPiece = board.getPiece(newCoordinates).orElse(null);
 
                 if (newCoordinatesPiece != null && newCoordinatesPiece.getColor() != color) {
@@ -58,6 +50,6 @@ public class PawnCoordinator extends BasicChessPieceCoordinator {
 
     @Override
     public ChessPieceType getPieceType() {
-        return ChessPieceType.PAWN;
+        return ChessPieceType.KING;
     }
 }

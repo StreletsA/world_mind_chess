@@ -4,6 +4,7 @@ import attribute.square.GameBoardSquare;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BasicGameBoardRow implements GameBoardRow {
     private final int rowIndex;
@@ -36,5 +37,26 @@ public class BasicGameBoardRow implements GameBoardRow {
     @Override
     public GameBoardSquare getSquare(int columnIndex) {
         return squares.get(columnIndex);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof BasicGameBoardRow)) {
+            return false;
+        }
+
+        BasicGameBoardRow other = (BasicGameBoardRow) obj;
+
+        return Objects.equals(rowIndex, other.rowIndex)
+                && Objects.equals(squares, other.squares);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rowIndex, squares);
     }
 }

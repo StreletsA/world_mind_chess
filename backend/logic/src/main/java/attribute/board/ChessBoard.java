@@ -1,11 +1,11 @@
 package attribute.board;
 
+import attribute.piece.ChessPiece;
 import attribute.row.GameBoardRow;
 import attribute.square.GameBoardSquare;
 import attribute.square.GameBoardSquareCoordinates;
 import error.LogicError;
 import game.move.ChessMove;
-import attribute.piece.ChessPiece;
 
 import java.util.List;
 import java.util.Map;

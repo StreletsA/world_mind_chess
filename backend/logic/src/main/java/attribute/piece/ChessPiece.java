@@ -2,6 +2,8 @@ package attribute.piece;
 
 import error.LogicError;
 
+import java.util.Objects;
+
 public class ChessPiece {
     private final ChessPieceType type;
     private final ChessPieceColor color;
@@ -27,5 +29,26 @@ public class ChessPiece {
 
     public ChessPieceColor getColor() {
         return color;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof ChessPiece)) {
+            return false;
+        }
+
+        ChessPiece other = (ChessPiece) obj;
+
+        return Objects.equals(type, other.type)
+                && Objects.equals(color, other.color);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, color);
     }
 }
