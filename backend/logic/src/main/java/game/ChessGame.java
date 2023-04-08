@@ -18,6 +18,7 @@ public interface ChessGame {
     void setPlayerWhite(Player playerWhite);
     void setPlayerBlack(Player playerBlack);
     void draw();
+    void setWinnerColor(ChessPieceColor color);
     ChessBoard getBoard();
     ChessPieceColor getMoveColor();
     GameStatus getStatus();
