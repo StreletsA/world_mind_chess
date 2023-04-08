@@ -1,7 +1,7 @@
 package game.move;
 
-import attribute.square.GameBoardSquareCoordinates;
 import attribute.piece.ChessPiece;
+import attribute.square.GameBoardSquareCoordinates;
 
 public interface ChessMove {
     ChessPiece getPiece();

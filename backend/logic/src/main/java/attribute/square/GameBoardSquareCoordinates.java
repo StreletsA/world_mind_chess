@@ -2,6 +2,8 @@ package attribute.square;
 
 import error.LogicError;
 
+import java.util.Objects;
+
 public class GameBoardSquareCoordinates {
     int row;
     int column;
@@ -84,6 +86,28 @@ public class GameBoardSquareCoordinates {
         return standardNotation;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof GameBoardSquareCoordinates)) {
+            return false;
+        }
+
+        GameBoardSquareCoordinates other = (GameBoardSquareCoordinates) obj;
+
+        return Objects.equals(standardNotation, other.standardNotation)
+                && row == other.row
+                && column == other.column;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(standardNotation, row, column);
+    }
+
     public static final class Coordinates {
         private final int row;
         private final int column;
@@ -103,6 +127,26 @@ public class GameBoardSquareCoordinates {
 
         public int getColumn() {
             return column;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+
+            if (!(obj instanceof Coordinates)) {
+                return false;
+            }
+
+            Coordinates other = (Coordinates) obj;
+
+            return row == other.row && column == other.column;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(row, column);
         }
     }
 }

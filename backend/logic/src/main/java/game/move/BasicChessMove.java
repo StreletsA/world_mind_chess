@@ -3,6 +3,8 @@ package game.move;
 import attribute.piece.ChessPiece;
 import attribute.square.GameBoardSquareCoordinates;
 
+import java.util.Objects;
+
 public class BasicChessMove implements ChessMove {
     private final ChessPiece piece;
     private final GameBoardSquareCoordinates oldCoordinates;
@@ -35,5 +37,27 @@ public class BasicChessMove implements ChessMove {
     @Override
     public GameBoardSquareCoordinates getNewCoordinates() {
         return newCoordinates;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof ChessMove)) {
+            return false;
+        }
+
+        ChessMove other = (ChessMove) obj;
+
+        return Objects.equals(piece, other.getPiece())
+                && Objects.equals(oldCoordinates, other.getOldCoordinates())
+                && Objects.equals(newCoordinates, other.getNewCoordinates());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(piece, oldCoordinates, newCoordinates);
     }
 }
