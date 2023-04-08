@@ -124,6 +124,13 @@ public class BasicChessGame implements ChessGame {
     }
 
     @Override
+    public void setWinnerColor(ChessPieceColor color) {
+        this.status = BasicGameStatus.of(true,
+                false,
+                color == ChessPieceColor.WHITE ? playerWhite : playerBlack);
+    }
+
+    @Override
     public Player getPlayerWhite() {
         return playerWhite;
     }
