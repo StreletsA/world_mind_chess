@@ -1,1 +1,1 @@
-# world_mind_chess
+# World Mind Chess
